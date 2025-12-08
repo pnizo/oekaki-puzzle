@@ -108,6 +108,38 @@ export async function unlockPuzzle(uid: string, puzzleId: string, cost: number):
   }
 }
 
+
+export async function recordPlay(uid: string, puzzleId: string): Promise<void> {
+  const userRef = doc(db, "users", uid);
+
+  try {
+    await runTransaction(db, async (transaction) => {
+      const userDoc = await transaction.get(userRef);
+      if (!userDoc.exists()) throw new Error("User does not exist!");
+
+      const userData = userDoc.data() as User;
+
+      // If already started/unlocked, do nothing
+      if (userData.unlockedPuzzles?.includes(puzzleId)) {
+        return;
+      }
+
+      // Add to unlockedPuzzles (acting as played record)
+      transaction.update(userRef, {
+        unlockedPuzzles: [...(userData.unlockedPuzzles || []), puzzleId]
+      });
+
+      // Increment playCount
+      const puzzleRef = doc(db, "puzzles", puzzleId);
+      transaction.update(puzzleRef, {
+        playCount: increment(1)
+      });
+    });
+  } catch (e) {
+    console.error("Record play failed: ", e);
+  }
+}
+
 // Puzzle Operations
 export async function createPuzzle(puzzleData: Omit<Puzzle, "id" | "createdAt" | "playCount" | "clearCount">): Promise<string> {
   const puzzlesRef = collection(db, "puzzles");

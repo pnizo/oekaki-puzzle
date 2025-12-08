@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
-import { getPuzzle, recordSolved, getUser } from '@/lib/firestore';
+import { getPuzzle, recordSolved, getUser, recordPlay } from '@/lib/firestore';
 import PuzzleBoard from '@/components/PuzzleBoard';
 import { Puzzle, User } from '@/types';
 
@@ -25,9 +25,11 @@ export default function SolvePage() {
       if (!user || !puzzleId) return;
 
       try {
+
         const [pData] = await Promise.all([
           getPuzzle(puzzleId),
-          getUser(user.uid) // Keep getUser if needed for other things, or remove if unused. Keeping for now as it does no harm.
+          getUser(user.uid),
+          recordPlay(user.uid, puzzleId) // Record play on load
         ]);
 
         if (pData) {
