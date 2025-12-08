@@ -58,17 +58,6 @@ export default async function Image({ params }: { params: Promise<{ id: string }
           justifyContent: 'center',
         }}
       >
-        <div
-          style={{
-            display: 'flex',
-            fontSize: 60,
-            fontWeight: 'bold',
-            color: '#0f172a', // slate-900
-            marginBottom: 40,
-          }}
-        >
-          {puzzle.title}
-        </div>
 
         <div
           style={{
@@ -102,7 +91,6 @@ export default async function Image({ params }: { params: Promise<{ id: string }
             color: '#64748b', // slate-500
           }}
         >
-          Start playing on Picture Logic!
         </div>
       </div>
     ),
