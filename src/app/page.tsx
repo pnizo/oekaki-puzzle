@@ -29,11 +29,11 @@ export default function Home() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 text-left max-w-4xl">
         <div className="p-6 bg-white rounded-xl shadow-sm border border-slate-100">
-          <h3 className="text-xl font-bold mb-2 text-slate-800">🎨 つくる</h3>
+          <h3 className="text-xl font-bold mb-2 text-slate-800">🎨 描く</h3>
           <p className="text-slate-600">4x4から10x10のグリッド上で、カラフルなピクセルアートを描きます。</p>
         </div>
         <div className="p-6 bg-white rounded-xl shadow-sm border border-slate-100">
-          <h3 className="text-xl font-bold mb-2 text-slate-800">🧩 変換</h3>
+          <h3 className="text-xl font-bold mb-2 text-slate-800">🧩 パズルにする</h3>
           <p className="text-slate-600">あなたのアートは自動的にお絵かきパズルに変換されます。</p>
         </div>
         <div className="p-6 bg-white rounded-xl shadow-sm border border-slate-100">
