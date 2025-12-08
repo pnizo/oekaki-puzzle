@@ -70,7 +70,7 @@ export default function CreatePage() {
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow-sm">
-      <h1 className="text-3xl font-bold mb-8 text-center text-slate-800">パズルをつくる</h1>
+      <h1 className="text-3xl font-bold mb-8 text-center text-slate-800">お絵かきする</h1>
 
       {/* Progress Steps */}
       <div className="flex justify-center mb-8 text-sm font-medium text-slate-500">

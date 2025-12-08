@@ -5,7 +5,7 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center min-h-[70vh] space-y-12 text-center">
       <div className="space-y-4">
         <h1 className="text-5xl font-extrabold text-slate-800 tracking-tight">
-          Welcome to <span className="text-blue-600">おえかきパズル</span>
+          <span className="text-blue-600">おえかきパズル</span>
         </h1>
         <p className="text-xl text-slate-600 max-w-2xl mx-auto">
           Draw colorful pixel art, convert it into logic puzzles, and challenge others to solve them!
@@ -17,7 +17,7 @@ export default function Home() {
           href="/create"
           className="px-8 py-4 bg-blue-600 text-white text-lg font-semibold rounded-xl shadow-lg hover:bg-blue-700 hover:shadow-xl transition-all transform hover:-translate-y-1"
         >
-          パズルをつくる
+          お絵かきする
         </Link>
         <Link
           href="/list"
