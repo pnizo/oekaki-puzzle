@@ -50,7 +50,9 @@ export default function GridEditor({ width, height, onSave }: GridEditorProps) {
 
 
 
-  const handleMouseDown = (index: number) => {
+  const handleMouseDown = (e: React.MouseEvent, index: number) => {
+    // Only draw on left click (button 0)
+    if (e.button !== 0) return;
     setIsDrawing(true);
     updateColor(index);
   };
@@ -128,7 +130,7 @@ export default function GridEditor({ width, height, onSave }: GridEditorProps) {
             key={i}
             className="aspect-square cursor-pointer hover:opacity-90 transition-opacity"
             style={{ backgroundColor: color }}
-            onMouseDown={() => handleMouseDown(i)}
+            onMouseDown={(e) => handleMouseDown(e, i)}
             onMouseEnter={() => handleMouseEnter(i)}
             onContextMenu={(e) => handleContextMenu(e, i)}
             onTouchStart={() => handleTouchStart(i)}
