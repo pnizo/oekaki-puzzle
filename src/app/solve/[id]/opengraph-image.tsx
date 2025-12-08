@@ -1,14 +1,21 @@
 import { ImageResponse } from 'next/og';
 import { getPuzzle } from '@/lib/firestore';
 
-export const runtime = 'nodejs';
+export const runtime = 'nodejs'; // Use Node.js runtime to support Firebase Admin/Client SDK better if needed
+
 export const alt = 'Picture Logic Puzzle';
-export const size = { width: 1200, height: 630 };
+export const size = {
+  width: 1200,
+  height: 630,
+};
 export const contentType = 'image/png';
 
 export default async function Image({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
+
+  // Handle array id if it happens (though in params it's usually string)
   const puzzleId = Array.isArray(id) ? id[0] : id;
+
   const puzzle = await getPuzzle(puzzleId);
 
   if (!puzzle) {
@@ -28,70 +35,79 @@ export default async function Image({ params }: { params: Promise<{ id: string }
           Puzzle Not Found
         </div>
       ),
-      { ...size }
+      {
+        ...size,
+      }
     );
   }
 
-  // Calculate cell size to fit the grid nicely
-  const maxGridSize = 400;
-  const cellSize = Math.floor(maxGridSize / Math.max(puzzle.width, puzzle.height));
+  // Calculate cell size to fit within a reasonable area (e.g., 500x500 max)
+  const maxDim = 500;
+  const cellSize = Math.floor(maxDim / Math.max(puzzle.width, puzzle.height));
 
   return new ImageResponse(
     (
       <div
         style={{
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          background: '#f8fafc', // slate-50
           width: '100%',
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: 24,
         }}
       >
-        {/* Title */}
-        {/* <div style={{ fontSize: 48, fontWeight: 'bold', color: 'white' }}>
-          {puzzle.title}
-        </div> */}
-
-        {/* Pixel Art Grid */}
         <div
           style={{
             display: 'flex',
-            flexDirection: 'column',
-            border: '4px solid white',
-            borderRadius: 8,
-            overflow: 'hidden',
+            fontSize: 60,
+            fontWeight: 'bold',
+            color: '#0f172a', // slate-900
+            marginBottom: 40,
           }}
         >
-          {Array.from({ length: puzzle.height }).map((_, row) => (
-            <div key={row} style={{ display: 'flex' }}>
-              {Array.from({ length: puzzle.width }).map((_, col) => {
-                const idx = row * puzzle.width + col;
-                const color = puzzle.originalImage[idx] || '#ffffff';
-                return (
-                  <div
-                    key={col}
-                    style={{
-                      width: cellSize,
-                      height: cellSize,
-                      backgroundColor: color,
-                    }}
-                  />
-                );
-              })}
-            </div>
+          {puzzle.title}
+        </div>
+
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            width: puzzle.width * cellSize,
+            height: puzzle.height * cellSize,
+            position: 'relative',
+          }}
+        >
+          {puzzle.originalImage.map((color, i) => (
+            <div
+              key={i}
+              style={{
+                width: cellSize,
+                height: cellSize,
+                backgroundColor: color,
+                position: 'absolute',
+                left: (i % puzzle.width) * cellSize,
+                top: Math.floor(i / puzzle.width) * cellSize,
+              }}
+            />
           ))}
         </div>
 
-        {/* Size info */}
-        <div style={{ fontSize: 24, color: 'rgba(255,255,255,0.8)' }}>
-          {puzzle.width} x {puzzle.height}
+        <div
+          style={{
+            display: 'flex',
+            marginTop: 40,
+            fontSize: 30,
+            color: '#64748b', // slate-500
+          }}
+        >
+          Start playing on Picture Logic!
         </div>
       </div>
     ),
-    { ...size }
+    {
+      ...size,
+    }
   );
 }
-
