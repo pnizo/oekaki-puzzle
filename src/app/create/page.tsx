@@ -54,7 +54,7 @@ export default function CreatePage() {
       const points = size * size;
       await addPoints(user.uid, points);
 
-      alert(`パズル完成！ ${points} ポイントをゲット！`);
+      alert(`パズル完成！`);
       router.push('/list');
     } catch (e) {
       console.error(e);
@@ -127,9 +127,9 @@ export default function CreatePage() {
 
           {error && <p className="text-red-500 text-sm">{error}</p>}
 
-          <div className="bg-blue-50 p-4 rounded-lg w-full text-center">
+          {/* <div className="bg-blue-50 p-4 rounded-lg w-full text-center">
             <p className="text-blue-800 font-medium">もらえる: {size * size} ポイント</p>
-          </div>
+          </div> */}
 
           <button
             onClick={handleSubmit}
