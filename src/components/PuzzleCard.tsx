@@ -28,12 +28,6 @@ export default function PuzzleCard({ puzzle, isSolved }: PuzzleCardProps) {
             <span className="text-sm font-medium">Locked</span>
           </div>
         )}
-
-        {isSolved && (
-          <div className="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full shadow">
-            済
-          </div>
-        )}
       </div>
 
       <div className="p-4">
@@ -50,12 +44,9 @@ export default function PuzzleCard({ puzzle, isSolved }: PuzzleCardProps) {
 
         <Link
           href={`/solve/${puzzle.id}`}
-          className={`block mt-4 text-center py-2 rounded-lg transition-colors ${isSolved
-            ? "bg-slate-100 text-slate-700 hover:bg-slate-200"
-            : "bg-blue-600 text-white hover:bg-blue-700"
-            }`}
+          className="block mt-4 text-center py-2 rounded-lg transition-colors bg-blue-600 text-white hover:bg-blue-700"
         >
-          {isSolved ? "もっかいあそぶ" : "あそぶ"}
+          あそぶ
         </Link>
       </div>
     </div>

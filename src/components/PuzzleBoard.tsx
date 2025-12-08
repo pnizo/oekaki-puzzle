@@ -198,7 +198,7 @@ export default function PuzzleBoard({ width, height, solution, onComplete }: Puz
               key={i}
               data-index={i}
               className={`h-8 w-8 border-r border-b border-slate-200 flex items-center justify-center cursor-pointer hover:bg-slate-100
-                        ${(i + 1) % 5 === 0 && (i + 1) % width !== 0 ? 'border-r-slate-400' : ''}
+                        ${(i % width + 1) % 5 === 0 && (i + 1) % width !== 0 ? 'border-r-slate-400' : ''}
                         ${Math.floor(i / width) % 5 === 4 && Math.floor(i / width) !== height - 1 ? 'border-b-slate-400' : ''}
                     `}
               onMouseDown={(e) => handleMouseDown(i, e)}
