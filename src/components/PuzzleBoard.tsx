@@ -216,8 +216,8 @@ export default function PuzzleBoard({ width, height, solution, onComplete }: Puz
       </div>
 
       <div className="mt-4 text-sm text-slate-500 text-center">
-        <p>Left Click / Tap: Toggle (Fill → X → Empty)</p>
-        <p>Right Click / Long Press: Mark X</p>
+        <p>左クリック / タップ: 塗りつぶし → X → 空白</p>
+        <p>右クリック / 長押し: X</p>
       </div>
     </div>
   );
