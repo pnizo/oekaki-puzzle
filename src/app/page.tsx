@@ -27,7 +27,7 @@ export default function Home() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 text-left max-w-4xl">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 text-left max-w-3xl mx-auto">
         <div className="p-6 bg-white rounded-xl shadow-sm border border-slate-100">
           <h3 className="text-xl font-bold mb-2 text-slate-800">🎨 描く</h3>
           <p className="text-slate-600">4x4から10x10のグリッド上で、カラフルなピクセルアートを描きます。</p>
