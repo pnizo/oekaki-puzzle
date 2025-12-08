@@ -51,9 +51,9 @@ export default async function Image({ params }: { params: Promise<{ id: string }
         }}
       >
         {/* Title */}
-        <div style={{ fontSize: 48, fontWeight: 'bold', color: 'white' }}>
+        {/* <div style={{ fontSize: 48, fontWeight: 'bold', color: 'white' }}>
           {puzzle.title}
-        </div>
+        </div> */}
 
         {/* Pixel Art Grid */}
         <div
