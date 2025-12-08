@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { generatePuzzleFromGrid } from '@/utils/puzzleUtils';
 
 interface GridEditorProps {
@@ -19,6 +19,34 @@ export default function GridEditor({ width, height, onSave }: GridEditorProps) {
   const [isDrawing, setIsDrawing] = useState(false);
   const [previewData, setPreviewData] = useState<number[] | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  // Long press for eyedropper
+  const longPressTimer = useRef<NodeJS.Timeout | null>(null);
+  const longPressTriggered = useRef(false);
+
+  const pickColor = useCallback((index: number) => {
+    setSelectedColor(colors[index]);
+  }, [colors]);
+
+  const handleContextMenu = (e: React.MouseEvent, index: number) => {
+    e.preventDefault();
+    pickColor(index);
+  };
+
+  const handleTouchStart = (index: number) => {
+    longPressTriggered.current = false;
+    longPressTimer.current = setTimeout(() => {
+      longPressTriggered.current = true;
+      pickColor(index);
+    }, 300);
+  };
+
+  const handleTouchEnd = () => {
+    if (longPressTimer.current) {
+      clearTimeout(longPressTimer.current);
+      longPressTimer.current = null;
+    }
+  };
 
 
 
@@ -102,6 +130,10 @@ export default function GridEditor({ width, height, onSave }: GridEditorProps) {
             style={{ backgroundColor: color }}
             onMouseDown={() => handleMouseDown(i)}
             onMouseEnter={() => handleMouseEnter(i)}
+            onContextMenu={(e) => handleContextMenu(e, i)}
+            onTouchStart={() => handleTouchStart(i)}
+            onTouchEnd={handleTouchEnd}
+            onTouchCancel={handleTouchEnd}
           />
         ))}
       </div>
