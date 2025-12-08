@@ -82,16 +82,6 @@ export default async function Image({ params }: { params: Promise<{ id: string }
             />
           ))}
         </div>
-
-        <div
-          style={{
-            display: 'flex',
-            marginTop: 40,
-            fontSize: 30,
-            color: '#64748b', // slate-500
-          }}
-        >
-        </div>
       </div>
     ),
     {
